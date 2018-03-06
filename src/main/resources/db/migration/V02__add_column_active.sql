@@ -1,0 +1,2 @@
+ALTER TABLE country
+ADD COLUMN active BOOLEAN DEFAULT 'true';
