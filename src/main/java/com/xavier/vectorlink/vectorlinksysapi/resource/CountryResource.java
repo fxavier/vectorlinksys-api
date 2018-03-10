@@ -46,7 +46,7 @@ public class CountryResource {
 	public ResponseEntity<Country> create(@Valid @RequestBody Country country, HttpServletResponse response) {
 		Country savedCountry = countryRepository.save(country);
 		
-		publisher.publishEvent(new CreatedResourceEvent(this, response, country.getId()));
+		publisher.publishEvent(new CreatedResourceEvent(this, response, savedCountry.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(savedCountry);
 	}
 	

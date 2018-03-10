@@ -2,34 +2,38 @@ package com.xavier.vectorlink.vectorlinksysapi.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "country")
-public class Country implements Serializable{
-	
+@Table(name = "district")
+public class District implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "country_id")
 	private Long id;
 	
 	@NotNull
-	@Size(min = 3, max = 30)
-	private String country;
+	private String name;
 	
-	private Boolean active;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "province_id")
+	private Province province;
+	
+	@NotNull
+	private Boolean active = true;
 
 	public Long getId() {
 		return id;
@@ -39,15 +43,22 @@ public class Country implements Serializable{
 		this.id = id;
 	}
 
-	public String getCountry() {
-		return country;
+	public String getName() {
+		return name;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	
+
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
 	public Boolean getActive() {
 		return active;
 	}
@@ -59,7 +70,7 @@ public class Country implements Serializable{
 	@Transient
 	@JsonIgnore
 	public Boolean isActive() {
-		return this.active == true;
+		return active == true;
 	}
 
 	@Override
@@ -78,7 +89,7 @@ public class Country implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Country other = (Country) obj;
+		District other = (District) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
