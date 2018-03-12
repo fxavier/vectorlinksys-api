@@ -1,5 +1,3 @@
-ALTER TABLE actor
-ADD COLUMN actor_code BIGINT;
 
 CREATE TABLE mob_totals(
 id BIGSERIAL,
