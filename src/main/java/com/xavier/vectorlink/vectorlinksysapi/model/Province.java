@@ -30,12 +30,12 @@ public class Province implements Serializable{
 	@NotNull
 	private String name;
 	
-	private Boolean active;
-	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "country_id")
 	private Country country;
+	
+	private Boolean active = true;
 
 	public Long getId() {
 		return id;
@@ -53,14 +53,6 @@ public class Province implements Serializable{
 		this.name = name;
 	}
 
-	
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
 
 	public Country getCountry() {
 		return country;
@@ -68,6 +60,14 @@ public class Province implements Serializable{
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+	
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 	
 	@JsonIgnore

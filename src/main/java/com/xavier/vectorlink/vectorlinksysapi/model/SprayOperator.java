@@ -2,6 +2,7 @@ package com.xavier.vectorlink.vectorlinksysapi.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +16,10 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "operational_site")
-public class OperationalSite implements Serializable{
+@Table(name = "spray_operator")
+public class SprayOperator implements Serializable{
 
-	
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -26,27 +27,33 @@ public class OperationalSite implements Serializable{
 	private Long id;
 	
 	@NotNull
+	@Column(name = "sop_code")
+	private Long sprayOperatorCode;
+	
+	@NotNull
 	private String name;
 	
-	@NotNull
-	private Long target;
 	
-	
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "district_id")
 	private District district;
+	
+	private Boolean active;
 
-	private Boolean active = true;
-	
-	
-	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getSprayOperatorCode() {
+		return sprayOperatorCode;
+	}
+
+	public void setSprayOperatorCode(Long sprayOperatorCode) {
+		this.sprayOperatorCode = sprayOperatorCode;
 	}
 
 	public String getName() {
@@ -57,14 +64,6 @@ public class OperationalSite implements Serializable{
 		this.name = name;
 	}
 
-	public Long getTarget() {
-		return target;
-	}
-
-	public void setTarget(Long target) {
-		this.target = target;
-	}
-
 	public District getDistrict() {
 		return district;
 	}
@@ -73,6 +72,7 @@ public class OperationalSite implements Serializable{
 		this.district = district;
 	}
 
+	
 	public Boolean getActive() {
 		return active;
 	}
@@ -80,11 +80,11 @@ public class OperationalSite implements Serializable{
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-
+	
 	@Transient
 	@JsonIgnore
 	public Boolean isActive() {
-		return this.active == true;
+		return active == true;
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class OperationalSite implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OperationalSite other = (OperationalSite) obj;
+		SprayOperator other = (SprayOperator) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -111,6 +111,7 @@ public class OperationalSite implements Serializable{
 			return false;
 		return true;
 	}
+	
 	
 	
 	

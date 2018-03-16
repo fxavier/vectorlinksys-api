@@ -2,8 +2,8 @@ CREATE TABLE province(
 id BIGSERIAL,
 name VARCHAR(100) NOT NULL,
 country_id INTEGER,
-PRIMARY KEY(id),
 active BOOLEAN NOT NULL DEFAULT 'true',
+PRIMARY KEY(id),
 CONSTRAINT fk_province_country 
      FOREIGN KEY(country_id) REFERENCES country(country_id)
 );

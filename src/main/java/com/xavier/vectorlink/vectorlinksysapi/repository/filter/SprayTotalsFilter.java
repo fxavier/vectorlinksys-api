@@ -13,6 +13,8 @@ public class SprayTotalsFilter {
 	private LocalDate endDate;
 	
 	private String villageName;
+	
+	private String sopCode;
 
 	public LocalDate getStartDate() {
 		return startDate;
@@ -37,6 +39,15 @@ public class SprayTotalsFilter {
 	public void setVillageName(String villageName) {
 		this.villageName = villageName;
 	}
+
+	public String getSopCode() {
+		return sopCode;
+	}
+
+	public void setSopCode(String sopCode) {
+		this.sopCode = sopCode;
+	}
+	
 	
 	
 

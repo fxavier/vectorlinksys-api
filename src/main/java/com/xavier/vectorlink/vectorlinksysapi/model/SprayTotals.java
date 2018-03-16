@@ -99,8 +99,13 @@ public class SprayTotals implements Serializable{
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "actor_id")
-	private Actor actor;
+	@JoinColumn(name = "sop_id")
+	private SprayOperator sprayOperator;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "tl_id")
+	private TeamLeader teamLeader;
 
 	public Long getId() {
 		return id;
@@ -256,12 +261,22 @@ public class SprayTotals implements Serializable{
 		this.village = village;
 	}
 
-	public Actor getActor() {
-		return actor;
+	
+
+	public SprayOperator getSprayOperator() {
+		return sprayOperator;
 	}
 
-	public void setActor(Actor actor) {
-		this.actor = actor;
+	public void setSprayOperator(SprayOperator sprayOperator) {
+		this.sprayOperator = sprayOperator;
+	}
+
+	public TeamLeader getTeamLeader() {
+		return teamLeader;
+	}
+
+	public void setTeamLeader(TeamLeader teamLeader) {
+		this.teamLeader = teamLeader;
 	}
 
 	@Override

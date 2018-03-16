@@ -12,11 +12,11 @@ women_sentitized_no BIGINT NOT NULL,
 spray_accpetance_yes BIGINT NOT NULL,
 spray_acceptance_no BIGINT NOT NULL,
 reference VARCHAR(100),
-actor_id BIGINT,
+mobilizer_id BIGINT,
 village_id BIGINT,
 PRIMARY KEY(id),
-CONSTRAINT fk_total_mob_actor
-     FOREIGN KEY(actor_id) REFERENCES actor(id),
+CONSTRAINT fk_total_mob_mobilizer
+     FOREIGN KEY(mobilizer_id) REFERENCES mobilizer(id),
 CONSTRAINT fk_total_mob_village
      FOREIGN KEY(village_id) REFERENCES village(id)     
 
@@ -34,11 +34,17 @@ women_sentitized BIGINT,
 spray_acceptance VARCHAR(10),
 reason_not_accepted INTEGER DEFAULT NULL,
 reference VARCHAR(100),
-actor_id BIGINT,
+mobilizer_id BIGINT,
 village_id BIGINT,
+iec_id BIGINT,
+arthmetic_verified VARCHAR(10),
+physical_verified VARCHAR(10),
+verification_date DATE NOT NULL,
 PRIMARY KEY(id),
-CONSTRAINT fk_detail_mob_actor
-     FOREIGN KEY(actor_id) REFERENCES actor(id),
+CONSTRAINT fk_detail_mob_mobilizer
+     FOREIGN KEY(mobilizer_id) REFERENCES mobilizer(id),
 CONSTRAINT fk_detail_mob_village
-     FOREIGN KEY(village_id) REFERENCES village(id)     
-)
+     FOREIGN KEY(village_id) REFERENCES village(id),
+CONSTRAINT fk_iec_mob_details 
+     FOREIGN KEY(iec_id) REFERENCES iec_assistant(id)
+);

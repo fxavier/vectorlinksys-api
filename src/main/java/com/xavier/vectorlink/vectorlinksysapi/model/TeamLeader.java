@@ -4,24 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "actor")
-public class Actor implements Serializable{
+@Table(name = "team_leader")
+public class TeamLeader implements Serializable{
 
-
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -29,15 +24,11 @@ public class Actor implements Serializable{
 	private Long id;
 	
 	@NotNull
-	@Column(name = "actor_code")
-	private Long actorCode;
+	@Column(name = "tl_code")
+	private Long teamLeaderCode;
 	
 	private String name;
 	
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(name = "actor_type")
-	private ActorType actorType;
 	
 	@ManyToOne
 	@JoinColumn(name = "district_id")
@@ -53,12 +44,12 @@ public class Actor implements Serializable{
 		this.id = id;
 	}
 
-	public Long getActorCode() {
-		return actorCode;
+	public Long getTeamLeaderCode() {
+		return teamLeaderCode;
 	}
 
-	public void setActorCode(Long actorCode) {
-		this.actorCode = actorCode;
+	public void setTeamLeaderCode(Long teamLeaderCode) {
+		this.teamLeaderCode = teamLeaderCode;
 	}
 
 	public String getName() {
@@ -69,14 +60,6 @@ public class Actor implements Serializable{
 		this.name = name;
 	}
 
-	public ActorType getActorType() {
-		return actorType;
-	}
-
-	public void setActorType(ActorType actorType) {
-		this.actorType = actorType;
-	}
-
 	public District getDistrict() {
 		return district;
 	}
@@ -85,19 +68,12 @@ public class Actor implements Serializable{
 		this.district = district;
 	}
 
-	
 	public Boolean getActive() {
 		return active;
 	}
 
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-	
-	@Transient
-	@JsonIgnore
-	public Boolean isActive() {
-		return active == true;
 	}
 
 	@Override
@@ -116,7 +92,7 @@ public class Actor implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Actor other = (Actor) obj;
+		TeamLeader other = (TeamLeader) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -124,8 +100,6 @@ public class Actor implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 	
 	
 

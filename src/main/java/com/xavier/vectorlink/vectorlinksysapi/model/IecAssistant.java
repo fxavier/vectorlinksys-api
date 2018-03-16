@@ -2,6 +2,7 @@ package com.xavier.vectorlink.vectorlinksysapi.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,14 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "operational_site")
-public class OperationalSite implements Serializable{
+@Table(name = "iec_assistant")
+public class IecAssistant implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
@@ -26,21 +24,18 @@ public class OperationalSite implements Serializable{
 	private Long id;
 	
 	@NotNull
+	@Column(name = "iec_code")
+	private Long iecAssistantCode;
+	
 	private String name;
 	
-	@NotNull
-	private Long target;
 	
-	
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "district_id")
 	private District district;
+	
+	private Boolean active;
 
-	private Boolean active = true;
-	
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -49,20 +44,20 @@ public class OperationalSite implements Serializable{
 		this.id = id;
 	}
 
+	public Long getIecAssistantCode() {
+		return iecAssistantCode;
+	}
+
+	public void setIecAssistantCode(Long iecAssistantCode) {
+		this.iecAssistantCode = iecAssistantCode;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Long getTarget() {
-		return target;
-	}
-
-	public void setTarget(Long target) {
-		this.target = target;
 	}
 
 	public District getDistrict() {
@@ -81,12 +76,6 @@ public class OperationalSite implements Serializable{
 		this.active = active;
 	}
 
-	@Transient
-	@JsonIgnore
-	public Boolean isActive() {
-		return this.active == true;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -103,7 +92,7 @@ public class OperationalSite implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OperationalSite other = (OperationalSite) obj;
+		IecAssistant other = (IecAssistant) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -111,8 +100,6 @@ public class OperationalSite implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 
+	
 }

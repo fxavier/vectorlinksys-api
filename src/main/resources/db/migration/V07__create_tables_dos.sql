@@ -21,11 +21,11 @@
     SOPMantemVelocCorrectaNao BIGINT NOT NULL,
     existeSubreposicao5cmSim BIGINT NOT NULL,
     existeSubreposicao5cmNao BIGINT NOT NULL,
-    tlOusupBrigada_id BIGINT NOT NULL,
+    tl_id BIGINT NOT NULL,
     village_id BIGINT NOT NULL,
     PRIMARY KEY(id),
-    CONSTRAINT fk_dos_totals_actor
-       FOREIGN KEY(tlOusupBrigada_id) REFERENCES actor(id),
+    CONSTRAINT fk_dos_totals_tl
+       FOREIGN KEY(tl_id) REFERENCES team_leader(id),
     CONSTRAINT fk_dos_totals_village
        FOREIGN KEY(village_id) REFERENCES village(id)     
    );
@@ -43,11 +43,14 @@
     SOPPulvComDist45cmParede VARCHAR(20) NOT NULL,
     SOPMantemVelocCorrecta VARCHAR(20) NOT NULL,
     existeSubreposicao5cm VARCHAR(20),
-    tlOusupBrigada_id BIGINT NOT NULL,
+    tl_id BIGINT NOT NULL,
+    sop_id BIGINT NOT NULL,
     village_id BIGINT NOT NULL,
     PRIMARY KEY(id),
-    CONSTRAINT fk_dos_details_actor
-       FOREIGN KEY(tlOusupBrigada_id) REFERENCES actor(id),
+    CONSTRAINT fk_dos_details_tl
+       FOREIGN KEY(tl_id) REFERENCES team_leader(id),
+    CONSTRAINT fk_dos_details_sop
+       FOREIGN KEY(sop_id) REFERENCES spray_operator(id),
     CONSTRAINT fk_dos_details_village
        FOREIGN KEY(village_id) REFERENCES village(id) 
 );

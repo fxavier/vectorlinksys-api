@@ -17,14 +17,16 @@ insecticide_issued INTEGER,
 insecticide_full_returned INTEGER,
 insecticide_empty_returned INTEGER,
 reference VARCHAR(100),
-village_id BIGINT,
-actor_id BIGINT,
+village_id BIGINT NOT NULL,
+sop_id BIGINT NOT NULL,
+tl_id BIGINT NOT NULL,
 PRIMARY KEY(id),
-CONSTRAINT fk_total_spray_actor
-     FOREIGN KEY(actor_id) REFERENCES actor(id),
-CONSTRAINT fk_total_sprat_village
-     FOREIGN KEY(village_id) REFERENCES village(id)     
-
+CONSTRAINT fk_total_spray_village
+     FOREIGN KEY(village_id) REFERENCES village(id),
+CONSTRAINT fk_total_sprat_team_leader
+     FOREIGN KEY(tl_id) REFERENCES team_leader(id),     
+CONSTRAINT fk_total_spray_sop
+     FOREIGN KEY(sop_id) REFERENCES spray_operator(id)
 );
 
 CREATE TABLE spray_details(
@@ -48,13 +50,15 @@ insecticide_empty_returned INTEGER,
 rooms_found BIGINT,
 rooms_sprayed BIGINT,
 reference VARCHAR(100),
-village_id BIGINT,
-actor_id BIGINT,
+village_id BIGINT  NOT NULL,
+sop_id BIGINT NOT NULL,
+tl_id BIGINT NOT NULL,
 PRIMARY KEY(id),
-CONSTRAINT fk_detail_spray_actor
-     FOREIGN KEY(actor_id) REFERENCES actor(id),
+CONSTRAINT fk_detail_spray_sop
+     FOREIGN KEY(sop_id) REFERENCES spray_operator(id),
 CONSTRAINT fk_detail_sprat_village
-     FOREIGN KEY(village_id) REFERENCES village(id)     
-
+     FOREIGN KEY(village_id) REFERENCES village(id),
+CONSTRAINT fk_detail_spray_team_leader
+     FOREIGN KEY(tl_id) REFERENCES team_leader(id)
 
 );

@@ -10,7 +10,9 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +47,12 @@ public class SprayTotalsResource {
 	public List<SprayTotals> search(SprayTotalsFilter sprayTotalsFilter){
 		return sprayTotalsRepository.findAll();
 		
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<SprayTotals> edit(@PathVariable Long id, @Valid @RequestBody SprayTotals sprayTotals){
+		SprayTotals updatedSprayTotals = sprayTotalsService.update(id, sprayTotals);
+		return ResponseEntity.ok(updatedSprayTotals);
 	}
 
 }
