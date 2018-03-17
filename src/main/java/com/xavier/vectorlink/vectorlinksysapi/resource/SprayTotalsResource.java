@@ -1,12 +1,12 @@
 package com.xavier.vectorlink.vectorlinksysapi.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +44,8 @@ public class SprayTotalsResource {
 	}
 	
 	@GetMapping
-	public List<SprayTotals> search(SprayTotalsFilter sprayTotalsFilter){
-		return sprayTotalsRepository.findAll();
+	public Page<SprayTotals> search(SprayTotalsFilter sprayTotalsFilter, Pageable pageable){
+		return sprayTotalsRepository.filter(sprayTotalsFilter, pageable);
 		
 	}
 	
