@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,14 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
-@Table(name = "spray_totals")
-public class SprayTotals implements Serializable{
+@Table(name = "spray_details")
+public class SprayDetails implements Serializable{
 
-	
+
 	private static final long serialVersionUID = 1L;
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,6 +30,23 @@ public class SprayTotals implements Serializable{
 	@NotNull
 	@Column(name = "spray_date")
 	private LocalDate sprayDate;
+	
+	@NotNull
+	@Column(name = "household_name")
+	private String houseHoldName;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender_person_interviwed")
+	private Gender genderInterviwedPerson;
+	
+	@NotNull
+	@Column(name = "household_id")
+	private String houseHoldId;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private SprayStatus sprayStatus;
 	
 	@NotNull
 	@Column(name = "sprayed_structures")
@@ -89,6 +108,10 @@ public class SprayTotals implements Serializable{
 	@Column(name = "insecticide_empty_returned")
 	private Long insecticideEmptyReturned;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "reason_not_sprayed")
+	private ReasonNotSprayed reasonNotSprayed;
+	
 	
 	private String reference;
 	
@@ -106,8 +129,6 @@ public class SprayTotals implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "tl_id")
 	private TeamLeader teamLeader;
-	
-	
 
 	public Long getId() {
 		return id;
@@ -123,6 +144,38 @@ public class SprayTotals implements Serializable{
 
 	public void setSprayDate(LocalDate sprayDate) {
 		this.sprayDate = sprayDate;
+	}
+
+	public String getHouseHoldName() {
+		return houseHoldName;
+	}
+
+	public void setHouseHoldName(String houseHoldName) {
+		this.houseHoldName = houseHoldName;
+	}
+
+	public Gender getGenderInterviwedPerson() {
+		return genderInterviwedPerson;
+	}
+
+	public void setGenderInterviwedPerson(Gender genderInterviwedPerson) {
+		this.genderInterviwedPerson = genderInterviwedPerson;
+	}
+
+	public String getHouseHoldId() {
+		return houseHoldId;
+	}
+
+	public void setHouseHoldId(String houseHoldId) {
+		this.houseHoldId = houseHoldId;
+	}
+
+	public SprayStatus getSprayStatus() {
+		return sprayStatus;
+	}
+
+	public void setSprayStatus(SprayStatus sprayStatus) {
+		this.sprayStatus = sprayStatus;
 	}
 
 	public Long getSprayedStructures() {
@@ -245,7 +298,13 @@ public class SprayTotals implements Serializable{
 		this.insecticideEmptyReturned = insecticideEmptyReturned;
 	}
 
-	
+	public ReasonNotSprayed getReasonNotSprayed() {
+		return reasonNotSprayed;
+	}
+
+	public void setReasonNotSprayed(ReasonNotSprayed reasonNotSprayed) {
+		this.reasonNotSprayed = reasonNotSprayed;
+	}
 
 	public String getReference() {
 		return reference;
@@ -262,8 +321,6 @@ public class SprayTotals implements Serializable{
 	public void setVillage(Village village) {
 		this.village = village;
 	}
-
-	
 
 	public SprayOperator getSprayOperator() {
 		return sprayOperator;
@@ -297,7 +354,7 @@ public class SprayTotals implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SprayTotals other = (SprayTotals) obj;
+		SprayDetails other = (SprayDetails) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
