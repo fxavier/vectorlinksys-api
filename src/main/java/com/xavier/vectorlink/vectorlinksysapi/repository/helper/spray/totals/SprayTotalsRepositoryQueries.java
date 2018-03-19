@@ -1,4 +1,4 @@
-package com.xavier.vectorlink.vectorlinksysapi.repository.helper.sprayTotals;
+package com.xavier.vectorlink.vectorlinksysapi.repository.helper.spray.totals;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

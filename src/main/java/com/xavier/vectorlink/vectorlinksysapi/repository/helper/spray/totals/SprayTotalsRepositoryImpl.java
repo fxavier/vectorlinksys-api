@@ -1,4 +1,4 @@
-package com.xavier.vectorlink.vectorlinksysapi.repository.helper.sprayTotals;
+package com.xavier.vectorlink.vectorlinksysapi.repository.helper.spray.totals;
 
 import java.util.ArrayList;
 import java.util.List;
