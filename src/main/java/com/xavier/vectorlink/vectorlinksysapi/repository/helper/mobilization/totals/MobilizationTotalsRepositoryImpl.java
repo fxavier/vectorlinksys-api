@@ -23,10 +23,11 @@ import com.xavier.vectorlink.vectorlinksysapi.model.Village_;
 import com.xavier.vectorlink.vectorlinksysapi.repository.filter.MobilizationTotalsFilter;
 
 public class MobilizationTotalsRepositoryImpl implements MobilizationTotalsRepositoryQueries{
-	
+
 	@PersistenceContext
 	private EntityManager manager;
-
+	
+	
 	@Override
 	public Page<MobilizationTotals> filter(MobilizationTotalsFilter mobilizationFilter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -37,17 +38,23 @@ public class MobilizationTotalsRepositoryImpl implements MobilizationTotalsRepos
 		criteria.where(predicates);
 		
 		TypedQuery<MobilizationTotals> query = manager.createQuery(criteria);
-		addPaginationRestrictions(query, pageable);
-		return new PageImpl<>(query.getResultList(), pageable, total(mobilizationFilter));
+		addPaginationsRestrictions(query, pageable);
+		
+		return new PageImpl<>(query.getResultList(), pageable, root(mobilizationFilter));
 	}
 
 
 	private Predicate[] createRestrictions(MobilizationTotalsFilter mobilizationFilter, CriteriaBuilder builder,
 			Root<MobilizationTotals> root) {
+		
 		List<Predicate> predicates = new ArrayList<>();
+		if(!StringUtils.isEmpty(mobilizationFilter.getVillageName())) {
+			predicates.add(builder.like(builder.lower(
+					root.get(MobilizationTotals_.village).get(Village_.name)), "%" + mobilizationFilter.getVillageName() + "%"));
+		}
 		
 		if(mobilizationFilter.getStartDate() != null) {
-	       predicates.add(builder.greaterThanOrEqualTo(root.get(MobilizationTotals_.mobDate), mobilizationFilter.getStartDate()));
+			predicates.add(builder.greaterThanOrEqualTo(root.get(MobilizationTotals_.mobDate), mobilizationFilter.getStartDate()));
 		}
 		
 		if(mobilizationFilter.getEndDate() != null) {
@@ -55,27 +62,25 @@ public class MobilizationTotalsRepositoryImpl implements MobilizationTotalsRepos
 		}
 		
 		if(mobilizationFilter.getMobCode() != null) {
-			predicates.add(builder.equal(root.get(MobilizationTotals_.mobilizer)
-					  .get(Mobilizer_.mobilizerCode), mobilizationFilter.getMobCode()));
+			predicates.add(builder.equal(root.get(MobilizationTotals_.mobilizer).get(Mobilizer_.mobilizerCode), mobilizationFilter.getMobCode()));
 		}
 		
-		if(StringUtils.isEmpty(builder.like(
-				  builder.lower(root.get(MobilizationTotals_.village)
-						  .get(Village_.name)), "%" + mobilizationFilter.getVillageName() + "%")));
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
-	
-	private void addPaginationRestrictions(TypedQuery<MobilizationTotals> query, Pageable pageable) {
+
+
+	private void addPaginationsRestrictions(TypedQuery<MobilizationTotals> query, Pageable pageable) {
 		int currentPage = pageable.getPageNumber();
-		int totalRecordsPerPage = pageable.getPageNumber();
-		int firstRecordOfPage = currentPage * totalRecordsPerPage;
+		int totalRecordsPerPage = pageable.getPageSize();
+		int firstRecordPerPage = currentPage * totalRecordsPerPage;
 		
-		query.setFirstResult(firstRecordOfPage);
+		query.setFirstResult(firstRecordPerPage);
 		query.setMaxResults(totalRecordsPerPage);
 		
 	}
 
-	private Long total(MobilizationTotalsFilter mobilizationFilter) {
+
+	private Long root(MobilizationTotalsFilter mobilizationFilter) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
 		Root<MobilizationTotals> root = criteria.from(MobilizationTotals.class);
@@ -84,6 +89,9 @@ public class MobilizationTotalsRepositoryImpl implements MobilizationTotalsRepos
 		criteria.where(predicates);
 		
 		criteria.select(builder.count(root));
+		
 		return manager.createQuery(criteria).getSingleResult();
 	}
+	
+	
 }

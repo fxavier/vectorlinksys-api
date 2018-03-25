@@ -24,7 +24,7 @@ import com.xavier.vectorlink.vectorlinksysapi.repository.filter.MobilizationTota
 import com.xavier.vectorlink.vectorlinksysapi.service.MobilizationTotalsService;
 
 @RestController
-@RequestMapping("/mobTotals")
+@RequestMapping("/mobtotals")
 public class MobilizationTotalsResource {
 
 	@Autowired
@@ -49,6 +49,12 @@ public class MobilizationTotalsResource {
 	@GetMapping
 	public Page<MobilizationTotals> search(MobilizationTotalsFilter mobilizationTotalsFilter, Pageable pageable){
 		return mobTotalsRepository.filter(mobilizationTotalsFilter, pageable);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<MobilizationTotals> findById(@PathVariable Long id){
+		MobilizationTotals mobTotals = mobTotalsRepository.getOne(id);
+		return mobTotals != null ? ResponseEntity.ok(mobTotals) : ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/{id}")

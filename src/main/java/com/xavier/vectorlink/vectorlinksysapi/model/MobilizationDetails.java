@@ -39,7 +39,7 @@ public class MobilizationDetails implements Serializable{
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "sentitized_structur")
+	@Column(name = "sentitized_structure")
 	private MobilizationStatus mobilizationStatus;
 	
 	
@@ -52,7 +52,7 @@ public class MobilizationDetails implements Serializable{
 	private Long menSentitized;
 	
 	@Column(name = "women_sentitized")
-	private Long women_sentitized;
+	private Long womenSentitized;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "spray_acceptance")
@@ -75,6 +75,12 @@ public class MobilizationDetails implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "iec_id")
 	private IecAssistant iecAssistant;
+	
+	@Column(name = "arthmetic_verified")
+	private String ArthmeticVerified;
+	
+	@Column(name = "physical_verified")
+	private String PhysicalVerified;
 	
 	@Column(name = "verification_date")
 	private LocalDate verificationDate;
@@ -135,12 +141,13 @@ public class MobilizationDetails implements Serializable{
 		this.menSentitized = menSentitized;
 	}
 
-	public Long getWomen_sentitized() {
-		return women_sentitized;
+	
+	public Long getWomenSentitized() {
+		return womenSentitized;
 	}
 
-	public void setWomen_sentitized(Long women_sentitized) {
-		this.women_sentitized = women_sentitized;
+	public void setWomenSentitized(Long womenSentitized) {
+		this.womenSentitized = womenSentitized;
 	}
 
 	public SprayAcceptance getSprayAcceptance() {
@@ -165,6 +172,22 @@ public class MobilizationDetails implements Serializable{
 
 	public void setReference(String reference) {
 		this.reference = reference;
+	}
+
+	public String getArthmeticVerified() {
+		return ArthmeticVerified;
+	}
+
+	public void setArthmeticVerified(String arthmeticVerified) {
+		ArthmeticVerified = arthmeticVerified;
+	}
+
+	public String getPhysicalVerified() {
+		return PhysicalVerified;
+	}
+
+	public void setPhysicalVerified(String physicalVerified) {
+		PhysicalVerified = physicalVerified;
 	}
 
 	public Mobilizer getMobilizer() {

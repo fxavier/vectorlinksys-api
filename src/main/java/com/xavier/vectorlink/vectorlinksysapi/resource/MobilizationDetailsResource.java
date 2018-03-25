@@ -24,7 +24,7 @@ import com.xavier.vectorlink.vectorlinksysapi.repository.filter.MobilizationDeta
 import com.xavier.vectorlink.vectorlinksysapi.service.MobilizationDetailsService;
 
 @RestController
-@RequestMapping("/mobDetails")
+@RequestMapping("/mobdetails")
 public class MobilizationDetailsResource {
 	
 	@Autowired

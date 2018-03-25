@@ -48,65 +48,48 @@ public class SprayDetails implements Serializable{
 	@Column(name = "status")
 	private SprayStatus sprayStatus;
 	
-	@NotNull
-	@Column(name = "sprayed_structures")
-	private Long sprayedStructures;
 	
-	@NotNull
-	@Column(name = "sprayed_man")
+	
+	@Column(name = "sprayed_men")
 	private Long sprayedMan;
 	
-	@NotNull
+	
 	@Column(name = "sprayed_women")
 	private Long sprayedWomen;
 	
-	@NotNull
+	
 	@Column(name = "sprayed_pregnant_women")
 	private Long sprayedPregnantWomen;
 	
-	@NotNull
+	
 	@Column(name = "sprayed_children")
 	private Long sprayedChildren;
 	
-	@NotNull
-	@Column(name = "structurs_not_sprayed")
-	private Long notSprayedStructures;
 	
-	@NotNull
+	
 	@Column(name = "not_sprayed_men")
 	private Long notSprayedMen;
 	
-	@NotNull
+	
 	@Column(name = "not_sprayed_women")
 	private Long notSprayedWomen;
 	
-	@NotNull
+	
 	@Column(name = "not_sprayed_pregnant_women")
 	private Long notSprayedPregnantWomen;
 	
-	@NotNull
+	
 	@Column(name = "not_sprayed_children")
 	private Long notSprayedChildren;
 	
-	@NotNull
+	
 	@Column(name = "rooms_found")
 	private Long roomsFound;
 	
-	@NotNull
+	
 	@Column(name = "rooms_sprayed")
 	private Long roomsSprayed;
 	
-	@NotNull
-	@Column(name = "insecticide_issued")
-	private Long insecticideIssued;
-	
-	@NotNull
-	@Column(name = "insecticide_full_returned")
-	private Long insecticideFullReturned;
-	
-	@NotNull
-	@Column(name = "insecticide_empty_returned")
-	private Long insecticideEmptyReturned;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "reason_not_sprayed")
@@ -178,14 +161,7 @@ public class SprayDetails implements Serializable{
 		this.sprayStatus = sprayStatus;
 	}
 
-	public Long getSprayedStructures() {
-		return sprayedStructures;
-	}
-
-	public void setSprayedStructures(Long sprayedStructures) {
-		this.sprayedStructures = sprayedStructures;
-	}
-
+	
 	public Long getSprayedMan() {
 		return sprayedMan;
 	}
@@ -216,14 +192,6 @@ public class SprayDetails implements Serializable{
 
 	public void setSprayedChildren(Long sprayedChildren) {
 		this.sprayedChildren = sprayedChildren;
-	}
-
-	public Long getNotSprayedStructures() {
-		return notSprayedStructures;
-	}
-
-	public void setNotSprayedStructures(Long notSprayedStructures) {
-		this.notSprayedStructures = notSprayedStructures;
 	}
 
 	public Long getNotSprayedMen() {
@@ -274,30 +242,7 @@ public class SprayDetails implements Serializable{
 		this.roomsSprayed = roomsSprayed;
 	}
 
-	public Long getInsecticideIssued() {
-		return insecticideIssued;
-	}
-
-	public void setInsecticideIssued(Long insecticideIssued) {
-		this.insecticideIssued = insecticideIssued;
-	}
-
-	public Long getInsecticideFullReturned() {
-		return insecticideFullReturned;
-	}
-
-	public void setInsecticideFullReturned(Long insecticideFullReturned) {
-		this.insecticideFullReturned = insecticideFullReturned;
-	}
-
-	public Long getInsecticideEmptyReturned() {
-		return insecticideEmptyReturned;
-	}
-
-	public void setInsecticideEmptyReturned(Long insecticideEmptyReturned) {
-		this.insecticideEmptyReturned = insecticideEmptyReturned;
-	}
-
+	
 	public ReasonNotSprayed getReasonNotSprayed() {
 		return reasonNotSprayed;
 	}

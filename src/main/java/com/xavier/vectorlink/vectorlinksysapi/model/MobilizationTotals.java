@@ -28,7 +28,7 @@ public class MobilizationTotals implements Serializable{
 	private LocalDate mobDate;
 	
 	@NotNull
-	@Column(name = "found_structers")
+	@Column(name = "found_structures")
 	private Long foundStructures;
 	
 	@NotNull

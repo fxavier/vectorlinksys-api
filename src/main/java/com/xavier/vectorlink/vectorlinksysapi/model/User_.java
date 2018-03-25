@@ -1,6 +1,7 @@
 package com.xavier.vectorlink.vectorlinksysapi.model;
 
 import javax.annotation.Generated;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -9,6 +10,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class User_ {
 
 	public static volatile SingularAttribute<User, String> password;
+	public static volatile ListAttribute<User, Role> roles;
 	public static volatile SingularAttribute<User, String> name;
 	public static volatile SingularAttribute<User, Boolean> active;
 	public static volatile SingularAttribute<User, Long> id;

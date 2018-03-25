@@ -16,8 +16,12 @@ public class MobilizationTotalsService {
 	
 	
 	public MobilizationTotals save(MobilizationTotals mobilizationTotals) {
+		if(isVariableNotEmpty(mobilizationTotals)) {
+			mobilizationTotals.setReference(createReference(mobilizationTotals));
+		}
 		return mobilizationTotalsRepository.save(mobilizationTotals);
 	}
+
 	
 	public MobilizationTotals update(Long id, MobilizationTotals mobilizationTotals) {
 		MobilizationTotals savedMobTotals = mobilizationTotalsRepository.getOne(id);
@@ -29,4 +33,11 @@ public class MobilizationTotalsService {
 		return mobilizationTotalsRepository.save(savedMobTotals);
 	}
 
+	private String createReference(MobilizationTotals mobilizationTotals) {
+		return mobilizationTotals.getMobDate().toString() + mobilizationTotals.getVillage().getId() + mobilizationTotals.getMobilizer().getId();
+	}
+	
+	private boolean isVariableNotEmpty(MobilizationTotals mobilizationTotals) {
+		return mobilizationTotals.getMobDate() != null && mobilizationTotals.getVillage().getId() != null && mobilizationTotals.getMobilizer() != null;
+	}
 }

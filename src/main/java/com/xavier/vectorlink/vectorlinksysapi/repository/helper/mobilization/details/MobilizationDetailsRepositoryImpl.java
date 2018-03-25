@@ -18,7 +18,6 @@ import org.springframework.util.StringUtils;
 
 import com.xavier.vectorlink.vectorlinksysapi.model.MobilizationDetails;
 import com.xavier.vectorlink.vectorlinksysapi.model.MobilizationDetails_;
-import com.xavier.vectorlink.vectorlinksysapi.model.Mobilizer_;
 import com.xavier.vectorlink.vectorlinksysapi.model.Village_;
 import com.xavier.vectorlink.vectorlinksysapi.repository.filter.MobilizationDetailsFilter;
 
@@ -35,46 +34,28 @@ public class MobilizationDetailsRepositoryImpl implements MobilizationDetailsRep
 		
 		Predicate[] predicates = createRestrictions(mobilizationdetailsFilter, builder, root);
 		criteria.where(predicates);
-		
 		TypedQuery<MobilizationDetails> query = manager.createQuery(criteria);
 		addPaginationRestrictions(query, pageable);
-		
 		return new PageImpl<>(query.getResultList(), pageable, total(mobilizationdetailsFilter));
 	}
 
 	private Predicate[] createRestrictions(MobilizationDetailsFilter mobilizationdetailsFilter, CriteriaBuilder builder,
 			Root<MobilizationDetails> root) {
-    
-		 List<Predicate> predicates = new ArrayList<>();
-		 
-		 if(mobilizationdetailsFilter.getStartDate() != null) {
-			 predicates.add(builder.greaterThanOrEqualTo(root.get(MobilizationDetails_.mobDate), mobilizationdetailsFilter.getStartDate()));
-		 }
-		 
-		 if(mobilizationdetailsFilter.getEndDate() != null) {
-			 predicates.add(builder.lessThanOrEqualTo(root.get(MobilizationDetails_.mobDate), mobilizationdetailsFilter.getEndDate()));
-		 }
-		 
-		 if(mobilizationdetailsFilter.getMobCode() != null) {
-			 predicates.add(builder.equal(root.get(MobilizationDetails_.mobilizer)
-					 .get(Mobilizer_.mobilizerCode), mobilizationdetailsFilter.getMobCode()));
-		 }
-		 
-		 if(!StringUtils.isEmpty(mobilizationdetailsFilter.getVillageName())) {
-			 predicates.add(builder.like(builder.lower(root
-					 .get(MobilizationDetails_.village)
-					 .get(Village_.name)), "%" + mobilizationdetailsFilter.getVillageName() + "%"));
-		 }
-
+		List<Predicate> predicates = new ArrayList<>();
+		if(!StringUtils.isEmpty(mobilizationdetailsFilter.getVillageName())) {
+			predicates.add(builder.like(builder.lower(root
+					.get(MobilizationDetails_.village)
+					.get(Village_.name)), "%" + mobilizationdetailsFilter.getVillageName() + "%"));
+		}
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 
 	private void addPaginationRestrictions(TypedQuery<MobilizationDetails> query, Pageable pageable) {
 		int currentPage = pageable.getPageNumber();
-		int totalRecordsPerPage = pageable.getPageNumber();
-		int firstRecordOfPage = currentPage * totalRecordsPerPage;
+		int totalRecordsPerPage = pageable.getPageSize();
+		int firstRecordsPerPage = currentPage * totalRecordsPerPage;
 		
-		query.setFirstResult(firstRecordOfPage);
+		query.setFirstResult(firstRecordsPerPage);
 		query.setMaxResults(totalRecordsPerPage);
 		
 	}
@@ -88,8 +69,9 @@ public class MobilizationDetailsRepositoryImpl implements MobilizationDetailsRep
 		criteria.where(predicates);
 		
 		criteria.select(builder.count(root));
-		
 		return manager.createQuery(criteria).getSingleResult();
 	}
+
+	
 
 }

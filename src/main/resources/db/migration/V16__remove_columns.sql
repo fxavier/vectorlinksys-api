@@ -1,0 +1,2 @@
+ALTER TABLE spray_details
+DROP COLUMN structurs_not_sprayed;
